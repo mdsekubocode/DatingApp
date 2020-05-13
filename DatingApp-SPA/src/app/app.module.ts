@@ -25,6 +25,9 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { AlertifyService } from './_services/alertify.service';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -39,8 +42,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
 
 @NgModule({
    declarations: [
-      AppComponent, NavComponent, HomeComponent, RegisterComponent, ListsComponent,
-      MessagesComponent, MemberListComponent, MemberCardComponent, MemberDetailComponent
+      AppComponent, NavComponent, HomeComponent, RegisterComponent, ListsComponent, MessagesComponent,
+      MemberListComponent, MemberCardComponent, MemberDetailComponent, MemberEditComponent
    ],
    imports: [
       BrowserModule, HttpClientModule, FormsModule, NgxGalleryModule,
@@ -56,7 +59,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
    ],
    providers: [
       AuthService, UserService, AlertifyService, AuthGuard, MemberDetailResolver, MemberListResolver,
-      ErrorInterceptorProvider, { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+      MemberEditResolver, ErrorInterceptorProvider, PreventUnsavedChanges,
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [
       AppComponent
